@@ -1,13 +1,21 @@
 import pandas as pd
 from .functions import check_type, check_column, log
 
-def contains(data, targetColumn, condition, file = 'Error_Log'):
+def contains(data, targetColumn, condition, file = 'Error_Log.txt'):
     """
-    Contains validation\n
-    data: Data source for validation\n
-    targetColumn: Column name that requires for validation \n
-    condition: Exact condition (Support multiple conditions by delimiter (,) E.g. A,B,C)\n
-    file: Invalid output text file name. E.g. ".\\Output\\Error_Log" store log with Error_Log name in Output folder
+    Contains validation.\n
+    Raise error when data does not contains 'condition'.\n
+    Invalid data will store in text file with location and name that declared in 'file'.\n
+
+    Parameters:
+    data (pd.DataFrame): Data source for validation.
+    targetColumn (list): Column name that requires for validation.
+    condition (str): Contains condition (Support multiple conditions by delimiter (,) E.g. A,B,C).
+    file (str): Invalid output text file.  
+
+    Raises:
+    TypeError: if parameters invalid type
+    Exception: if invalid data detected
     """
 
     # Validate parameter 
@@ -37,4 +45,4 @@ def contains(data, targetColumn, condition, file = 'Error_Log'):
 
     if invalid:
         log(file, logContent)
-        raise Exception('Invalid contains detected.')
+        raise Exception('Invalid contains detected. View more in ' + file)

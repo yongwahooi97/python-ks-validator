@@ -2,14 +2,22 @@ import pandas as pd
 import numpy as np
 from .functions import check_type, check_column, log
 
-def number_range(data, targetColumn, min = np.nan, max = np.nan, file = 'Error_Log'):
+def number_range(data, targetColumn, min = np.nan, max = np.nan, file = 'Error_Log.txt'):
     """
     Number validation\n
-    data: Data source for validation\n
-    targetColumn: Column name that requires for validation\n
-    min: Minimum value of data. If none, leave it blank or set to np.nan\n
-    max: Maximum value of data. If none, leave it blank or set to np.nan\n
-    file: Invalid output text file name. E.g. ".\\Output\\Error_Log" store log with Error_Log name in Output folder
+    Raise error when data does not within range.\n
+    Invalid data will store in text file with location and name that declared in 'file'.\n
+
+    Parameters:
+    data (pd.DataFrame): Data source for validation.
+    targetColumn (list): Column name that requires for validation.    
+    min (int, float): Minimum value of data. If none, leave it blank or set to np.nan\n
+    max (int, float): Maximum value of data. If none, leave it blank or set to np.nan\n
+    file (str): Invalid output text file.  
+
+    Raises:
+    TypeError: if parameters invalid type
+    Exception: if invalid data detected
     """
 
     # Validate parameter 
@@ -52,4 +60,4 @@ def number_range(data, targetColumn, min = np.nan, max = np.nan, file = 'Error_L
 
     if invalid:
         log(file, logContent)
-        raise Exception('Invalid number detected.')
+        raise Exception('Invalid number detected. View more in ' + file)

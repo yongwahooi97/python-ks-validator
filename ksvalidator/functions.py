@@ -27,7 +27,7 @@ def check_column(column, data, file):
 def log(file, content):
     try:
         date = datetime.now()
-        f = open(file + '.txt', "a")
+        f = open(file, "a")
         print('\n========================\n', file=f)
         print('Date: '+ date.strftime("%d/%m/%y") + '\nTime: ' + date.strftime("%X"), file=f)
         print('\n------------\n', file=f)

@@ -3,15 +3,22 @@ import numpy as np
 from datetime import datetime
 from .functions import check_type, check_column, log, validate_date
 
-def date_format(data, targetColumn, format, file = 'Error_Log'):
+def date_format(data, targetColumn, format, file = 'Error_Log.txt'):
     
     """
     Date format validation\n
-    data: Data source for validation\n
-    targetColumn: Column name that requires for validation \n
-    format: Date format 
-    (https://www.geeksforgeeks.org/python-datetime-strptime-function/)\n
-    file: Invalid output text file name. E.g. ".\\Output\\Error_Log" store log with Error_Log name in Output folder
+    Raise error when data does not match 'format'.\n
+    Invalid data will store in text file with location and name that declared in 'file'.\n
+
+    Parameters:
+    data (pd.DataFrame): Data source for validation
+    targetColumn (list): Column name that requires for validation
+    format (str): Date format (https://www.geeksforgeeks.org/python-datetime-strptime-function/)
+    file (str): Invalid output text file.  
+    
+    Raises:
+    TypeError: if parameters invalid type
+    Exception: if invalid data detected
     """
 
     # Validate parameter 
@@ -49,17 +56,24 @@ def date_format(data, targetColumn, format, file = 'Error_Log'):
         log(file, logContent)
         raise Exception('Invalid date format detected.')
 
-def date_range(data, targetColumn, format  = '%d/%m/%Y', startDate = np.nan, endDate = np.nan, file = 'Error_Log'):
+def date_range(data, targetColumn, format  = '%d/%m/%Y', startDate = np.nan, endDate = np.nan, file = 'Error_Log.txt'):
     
     """
     Date range validation\n
-    data: Data source for validation\n
-    targetColumn: Column name that requires for validation\n
-    format: Date format. Default format is %d/%m/%Y 
-    (https://www.geeksforgeeks.org/python-datetime-strptime-function/)\n
-    startDate: Data must after or on startDate. If none, leave it blank or set to np.nan\n
-    endDate: Data must before or on endDate. If none, leave it blank or set to np.nan\n
-    file: Invalid output text file name. E.g. ".\\Output\\Error_Log" store log with Error_Log name in Output folder
+    Raise error when date does not within range.\n
+    Invalid data will store in text file with location and name that declared in 'file'.\n
+
+    Parameters:
+    data (pd.DataFrame): Data source for validation
+    targetColumn (list): Column name that requires for validation
+    format (str): Date format. Default format is %d/%m/%Y (https://www.geeksforgeeks.org/python-datetime-strptime-function/)
+    startDate (str): Data must after or on startDate. If none, leave it blank or set to np.nan\n
+    endDate (str): Data must before or on endDate. If none, leave it blank or set to np.nan\n
+    file (str): Invalid output text file.  
+    
+    Raises:
+    TypeError: if parameters invalid type
+    Exception: if invalid data detected
     """
 
     # Validate parameter 
@@ -111,4 +125,4 @@ def date_range(data, targetColumn, format  = '%d/%m/%Y', startDate = np.nan, end
 
     if invalid:
         log(file, logContent)
-        raise Exception('Invalid date range detected.')
+        raise Exception('Invalid date range detected. View more in ' + file)
